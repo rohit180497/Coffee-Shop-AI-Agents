@@ -46,7 +46,7 @@ class ClassificationAgent():
         return output
 
     def postprocess(self, chatbot_output):
-        print("classification output", chatbot_output)
+        # print("classification output", chatbot_output)
         output = json.loads(chatbot_output)
         dict_output = {
             "role": "assistant",

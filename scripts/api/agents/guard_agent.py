@@ -46,7 +46,7 @@ class GuardAgent():
         input_messages = [{"role" : "system", "content": system_prompt}] + messages[-3:]
         # print("input message: ", input_messages)
         chatbot_output = get_chatbot_response(client= self.client, messages=input_messages)
-        print("chatbot output: ", chatbot_output)
+        # print("chatbot output: ", chatbot_output)
         output = self.postprocess(chatbot_output)
         # print("output: ", output)
         return output

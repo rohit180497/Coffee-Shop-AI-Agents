@@ -12,10 +12,8 @@ if __name__ == "__main__":
     guard_agent = GuardAgent()
     classification_agent = ClassificationAgent()
 
-
     agent_dict: Dict[str, AgentProtocol] = {
-        details_agent : DetailsAgent()
-
+        "details_agent" : DetailsAgent()
     }
 
     messages= []
@@ -43,7 +41,7 @@ if __name__ == "__main__":
         print("Choosen_agent: ", choosen_agent)
 
         #get the choosen agent's response
-        agent = agent_dict[choosen_agent].get_response(messages)
+        agent = agent_dict[choosen_agent]
         response = agent.get_response(messages)
-
-        messages.append()
+        print("final:", response)
+        messages.append(response)

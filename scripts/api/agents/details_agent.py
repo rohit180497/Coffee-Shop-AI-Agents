@@ -41,8 +41,8 @@ class DetailsAgent():
 
         user_response = messages[-1]["content"]
         embeddings = get_embedding(self.embedding_client, self.model_name, user_response)[0]
-        result = self.get_closest_result
-        source_knowledge = "\n".join([x['metadata']['text'].strip() + "\n" for x in result["matches"]])
+        result = self.get_closest_result(self.index_name, embeddings)
+        source_knowledge = "\n".join([x['metadata']['text'].strip()+"\n" for x in result["matches"]])
 
         prompt = f"""
         Using the contexts below answer the query:
@@ -57,10 +57,16 @@ class DetailsAgent():
         """
 
         messages[-1]["content"] = prompt
-        input_response = [{"role":"system", "context": system_prompt}]  + messages[-3:]
+        
+        print("DEBUG - Messages Data Type:", type(messages))
+        print("DEBUG - Message Content:", messages)
 
+        input_response = [{"role":"system", "content": system_prompt}]  + messages[-3:]
+        print("Input Data Type: ", type(input_response))
+        print("input to chatbot: ", input_response)
         chatbot_output = get_chatbot_response(self.client, self.model_name, input_response)
         output = self.postprocess(chatbot_output)
+        print("DA Chatbot OP: ", output)
         return output
 
     def postprocess(self, output):

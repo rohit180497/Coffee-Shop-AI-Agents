@@ -1,7 +1,10 @@
 def get_chatbot_response(client, messages, temperature = 0.0):
     input_messages = []
     for message in messages:
-        input_messages.append({"role": message["role"], "content": message["content"]}
+        print("DEBUG: Messages Data Type:", type(message))
+        print("DEBUG: Messages Content:", message)
+        input_messages.append(
+            {"role": message["role"], "content": message["content"]}
         )
 
     response = client.chat.completions.create(
@@ -16,7 +19,7 @@ def get_chatbot_response(client, messages, temperature = 0.0):
 
 
 def get_embedding(embedding_client, model_name, text_input):
-    output = embedding_client.embedding.create(input= text_input, model=model_name)
+    output = embedding_client.embeddings.create(input= text_input, model=model_name)
 
     embeddings = []
     for embedding_object in output.data:
