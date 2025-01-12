@@ -1,8 +1,8 @@
 def get_chatbot_response(client, messages, temperature = 0.0):
     input_messages = []
+    
     for message in messages:
-        print("DEBUG: Messages Data Type:", type(message))
-        print("DEBUG: Messages Content:", message)
+        # print("message in --", message)
         input_messages.append(
             {"role": message["role"], "content": message["content"]}
         )
@@ -26,3 +26,18 @@ def get_embedding(embedding_client, model_name, text_input):
         embeddings.append(embedding_object.embedding)
 
     return embeddings
+
+def double_check_json_output(client,json_string):
+    prompt = f""" You will check this json string and correct any mistakes that will make it invalid. Then you will return the corrected json string. Nothing else. 
+    If the Json is correct just return it.
+
+    Do NOT return a single letter outside of the json string.
+
+    {json_string}
+    """
+
+    messages = [{"role": "user", "content": prompt}]
+
+    response = get_chatbot_response(client,messages)
+
+    return response 

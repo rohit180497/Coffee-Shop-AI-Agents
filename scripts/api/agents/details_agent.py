@@ -36,45 +36,36 @@ class DetailsAgent():
 
         return results
 
-    def get_response(self, messages):
+    def get_response(self,messages):
         messages = deepcopy(messages)
-
-        user_response = messages[-1]["content"]
-        embeddings = get_embedding(self.embedding_client, self.model_name, user_response)[0]
-        result = self.get_closest_result(self.index_name, embeddings)
-        source_knowledge = "\n".join([x['metadata']['text'].strip()+"\n" for x in result["matches"]])
+        
+        user_message = messages[-1]['content']
+        embedding = get_embedding(self.embedding_client,self.model_name,user_message)[0]
+        result = self.get_closest_result(self.index_name,embedding)
+        source_knowledge = "\n".join([x['metadata']['text'].strip()+'\n' for x in result['matches'] ])
 
         prompt = f"""
-        Using the contexts below answer the query:
+        Using the contexts below, answer the query.
 
-        contexts: {source_knowledge}
-        query: {user_response}
-        
+        Contexts: {source_knowledge}
+
+        Query: {user_message}
         """
 
-        system_prompt = """
-        You are a customer support agent for a coffee shop called Merry's way. You should answer every question as if you are waiter and provide the neccessary information to the user regarding their orders        
-        """
-
-        messages[-1]["content"] = prompt
+        system_prompt = """ You are a customer support agent for a coffee shop called Merry's way. You should answer every question as if you are waiter and provide the neccessary information to the user regarding their orders """
+        messages[-1]['content'] = prompt
         
-        print("DEBUG - Messages Data Type:", type(messages))
-        print("DEBUG - Message Content:", messages)
-
-        input_response = [{"role":"system", "content": system_prompt}]  + messages[-3:]
-        print("Input Data Type: ", type(input_response))
-        print("input to chatbot: ", input_response)
-        chatbot_output = get_chatbot_response(self.client, self.model_name, input_response)
+        input_messages = [{"role": "system", "content": system_prompt}] + messages[-3:]
+        
+        chatbot_output =get_chatbot_response(self.client,input_messages)
         output = self.postprocess(chatbot_output)
-        print("DA Chatbot OP: ", output)
         return output
 
-    def postprocess(self, output):
+    def postprocess(self,output):
         output = {
-            "role" : "assistant",
-            "content" : output,
-            "memory" : {
-                "agent": "details_agent"
-            }
+            "role": "assistant",
+            "content": output,
+            "memory": {"agent":"details_agent"
+                      }
         }
         return output
