@@ -1,5 +1,5 @@
 from openai import OpenAI
-from .utils import get_chatbot_response
+from .utils import get_chatbot_response, double_check_json_output
 from copy import deepcopy
 import dotenv
 import os
@@ -46,7 +46,8 @@ class GuardAgent():
         input_messages = [{"role" : "system", "content": system_prompt}] + messages[-3:]
         # print("input message: ", input_messages)
         chatbot_output = get_chatbot_response(client= self.client, messages=input_messages)
-        # print("chatbot output: ", chatbot_output)
+        chatbot_output = double_check_json_output(self.client, chatbot_output)
+        
         output = self.postprocess(chatbot_output)
         # print("output: ", output)
         return output
