@@ -40,10 +40,10 @@ class ClassificationAgent():
             {"role": "system", "content": system_promt}
         ]
         input_messages += messages[-3:]
-        print("classfctn IP MESAAGE=================", input_messages)
+        # print("classfctn IP MESAAGE=================", input_messages)
         chatbot_output = get_chatbot_response(self.client, input_messages)
         chatbot_output = double_check_json_output(self.client, chatbot_output)
-        print("classfctn CHATBOT MESAAGE-----------------",chatbot_output)
+        # print("classfctn CHATBOT MESAAGE-----------------",chatbot_output)
         output = self.postprocess(chatbot_output)
         return output
 

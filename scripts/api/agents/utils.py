@@ -33,6 +33,7 @@ def double_check_json_output(client,json_string):
 
     If there is any text before order after the json string, remove it.
     Do NOT return a single letter outside of the json string.
+    Make sure that each key is enclosed in double quotes.
     The first thing you write should be open curly braces of the json and the last letter you write should be the closing curly brace.
 
     You should check the json string for the following text between triple backticks: 

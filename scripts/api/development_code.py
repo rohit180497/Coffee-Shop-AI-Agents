@@ -46,7 +46,7 @@ def main():
         #get classification Agent's response
         classification_agent_response = classification_agent.get_response(messages)
         choosen_agent = classification_agent_response["memory"]["classification_decision"]
-        print("Choosen_agent: ", choosen_agent)
+        # print("Choosen_agent: ", choosen_agent)
 
         # print("Messages: ", messages)
 

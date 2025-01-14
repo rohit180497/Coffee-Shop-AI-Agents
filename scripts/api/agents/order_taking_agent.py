@@ -101,7 +101,7 @@ class OrderTakingAgent():
 
         # double check json 
         chatbot_output = double_check_json_output(self.client, chatbot_output)
-        print("OTA OUTPUT:", chatbot_output)
+        # print("OTA OUTPUT:", chatbot_output)
         output = self.postprocess(chatbot_output, messages, asked_recommendation_before)
 
         return output
@@ -123,7 +123,7 @@ class OrderTakingAgent():
             "role": "assistant",
             "content": response ,
             "memory": {"agent":"order_taking_agent",
-                       "step number": output["step number"],
+                       "step number": output.get("step number",1),
                        "order": output["order"],
                        "asked_recommendation_before": asked_recommendation_before
                       }
