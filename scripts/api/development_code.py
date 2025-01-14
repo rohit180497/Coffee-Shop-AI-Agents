@@ -21,6 +21,7 @@ def main():
 
     agent_dict: Dict[str, AgentProtocol] = {
         "details_agent" : DetailsAgent(),
+        "recommendation_agent" :  recommendation_agent,
         "order_taking_agent": OrderTakingAgent(recommendation_agent)
     }
 
