@@ -44,5 +44,5 @@ def double_check_json_output(client,json_string):
     messages = [{"role": "user", "content": prompt}]
 
     response = get_chatbot_response(client,messages)
-    response  = response.replace("'''", "")
+    response  = response.replace("`", "")
     return response 
