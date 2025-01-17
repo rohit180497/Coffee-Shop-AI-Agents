@@ -1,23 +1,61 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Product } from '@/types/types'
+import { Product, ProductCategory } from '@/types/types'
 import { fetchProducts } from '@/services/productService'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import SearchArea from '@/components/SearchArea' ;
+import Banner from '@/components/Banner'
 
 
 const home = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
+    const [shownProducts, setshownProducts] = useState<Product[]>([]);
+    const [productCategories, setproductCategories] = useState<ProductCategory[]>([]);
+    const [selectedCategory, setSelectedCategory ] = useState<string>('All');
     const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const uniqueCategories = Array.from(productCategories).map((category) => ({
+            id: category.id,
+            selected: selectedCategory === category.id,
+
+        }));
+
+        setproductCategories(uniqueCategories);
+
+        if (selectedCategory === 'All') {
+            setshownProducts(products);
+        } else {
+            const filteredProducts = products.filter((product) => product.category === selectedCategory);
+            setshownProducts(filteredProducts)
+        }
+
+    },[selectedCategory])
+
+    useEffect(() => {
+
+
+    },[selectedCategory]);
 
     useEffect(() => {
         const loadProducts = async() => {
             try {
                 const productsData = await fetchProducts();
-                
+                const categories = productsData.map((product) => product.category);
+                categories.unshift('All');
+
+                const uniqueCategories = Array.from(new Set(categories)).map((category) => ({
+                    id: category,
+                    selected: selectedCategory === category,
+                }));
+
+                setproductCategories(uniqueCategories);
                 setProducts(productsData);
+                setshownProducts(productsData);
+
             } catch (err) {
                 console.log(err);
             } finally {
@@ -42,7 +80,7 @@ const home = () => {
                 numColumns={2}
                 columnWrapperStyle= {{justifyContent: 'space-between',marginLeft:15, marginRight:15 }}
                 keyExtractor={(item, index) => index.toString()}
-                data = {products}
+                data = {shownProducts}
 
                 renderItem={({item}) => (
                     <View
@@ -77,7 +115,7 @@ const home = () => {
 
                                 <View
                                 className='mr-2 p-2 -mt-1 bg-app_orange_color rounded-xl'>
-                                <AntDesign name="plus" size={24} color="white" />
+                                <AntDesign name="plus" size={18} color="white" />
                                 </View>
                             </TouchableOpacity>
 
@@ -87,10 +125,43 @@ const home = () => {
 
 
                 )}  
+
+
+            ListHeaderComponent={() => (
+                <View
+                className='flex'
+                >
+                <SearchArea/>
+                <Banner />
+                <View
+                className='flex items-center'
+                >
+                    <FlatList
+                        className='mt-6 w-[90%] mb-2'
+                        data = {productCategories}
+                        horizontal= {true}
+                        renderItem={({item}) => (
+                            <TouchableOpacity
+                            onPress = {() => setSelectedCategory(item.id)}
+                            >
+                                
+                                <Text
+                                    className={`text-sm mr-4 font-[Sora-Regular] p-3 rounded-lg 
+                                        ${item.selected ? 'text-white' : 'text-[#313131]'}
+                                        ${item.selected ? 'bg-app_orange_color ' : 'bg-[#EDEDED] '}
+                                        `}
+                                >
+                                    {item.id}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
+                
+                </View>
+            )}
             />
-            <Text>
-            Home
-            </Text>
+             
         </SafeAreaView>
     </GestureHandlerRootView>
     )
