@@ -27,7 +27,7 @@ const TabsLayout = () => {
           options={{
             headerShown: true,
             tabBarStyle: { display: 'none' },
-            title: 'Chat Bot',
+            title: 'Cafe Bot',
             tabBarIcon: ({color }) => (
               <FontAwesome6 name="robot" size={24} color={color} />
             )

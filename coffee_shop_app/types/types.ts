@@ -14,3 +14,9 @@ export interface ProductCategory{
   id: string,
   selected: boolean,
 }
+
+export interface MessageInterface{
+  cole: string;
+  content: string;
+  memory?: any;
+}

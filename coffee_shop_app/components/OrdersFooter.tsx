@@ -14,7 +14,7 @@ const OrdersFooter: React.FC<OrdersFooterProps> = ({ totalPrice }) => {
             </Text>
 
             <View className='flex-row justify-between mx-7 mb-3'>
-                <Text className='text-base font-[Sora-Regular]'>
+                <Text className='text-base font-[Sora-Bold]'>
                     Price
                 </Text>
                 <Text className='text-base font-[Sora-SemiBold]'>
@@ -23,7 +23,7 @@ const OrdersFooter: React.FC<OrdersFooterProps> = ({ totalPrice }) => {
             </View>
 
             <View className='flex-row justify-between mx-7 pb-8'>
-                <Text className='text-base font-[Sora-Regular]'>
+                <Text className='text-base font-[Sora-Bold]'>
                     Delivery Fee
                 </Text>
                 <Text className='text-base font-[Sora-SemiBold]'>

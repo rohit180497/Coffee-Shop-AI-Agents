@@ -18,7 +18,7 @@ const OrdersHeader = () => {
         Snell Library
         </Text>
         <Text
-        className=" mx-7 text-[#A2A2A2] text-xs font-[Sora-SemiBold] mb-3"
+        className=" mx-7 text-[#A2A2A2] text-s font-[Sora-SemiBold] mb-3"
         >
         360 Huntington Ave, Boston, MA 02115
         </Text>
