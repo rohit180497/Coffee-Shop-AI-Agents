@@ -1,26 +1,44 @@
 import { Text, TouchableOpacity, View } from 'react-native'
-import React, { useState, useRef} from 'react'
+import React, { useEffect, useState, useRef} from 'react'
 import PageHeader from '@/components/PageHeader'
 import { MessageInterface } from '@/types/types'
 import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler'
 import {heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { Feather } from '@expo/vector-icons'
+import MessageList from '@/components/MessageList'
+import { callChatBotAPI } from '@/services/chatBotService'
 
 
 const ChatRoom = () => {
 
-  const [messages, setMessages] = useState<MessageInterface[]>([])
+  const [messages, setMessages] = useState<MessageInterface[]>([]) 
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+
   const textRef = useRef('')
   const inputRef = useRef<TextInput>(null)
+
+  useEffect(() => {
+  }, [messages]);
+
+
   const handleSendMessage = async () => {
     let message = textRef.current.trim()
     if (!message) return;
     try 
     {
-      let InputMessages = [...messages, {content: message, role: 'user'}]
+      // Add the user message to the list of messages
+      let inputMessages = [...messages, {content: message, role: 'user'}]
+      setMessages(inputMessages)
 
-      setMessages(InputMessages)
       textRef.current = ''
+      if(inputRef) inputRef?.current?.clear();
+
+      // Calling the chatbot API here
+      setIsTyping(true)
+      // await new Promise(resolve => setTimeout(resolve, 5000))
+      let responseMessage = await callChatBotAPI(inputMessages)
+      setMessages([...inputMessages, responseMessage])
+      setIsTyping(false)
     } 
     catch (error) 
     {
@@ -38,6 +56,10 @@ const ChatRoom = () => {
         <View
           className='flex-1'
         >
+          <MessageList
+            messages={messages}
+            isTyping = {isTyping}
+          />
 
         </View>
 
@@ -54,6 +76,7 @@ const ChatRoom = () => {
 
           <TouchableOpacity
             className='bg-neutral-200 p-2 mr-[1px] rounded-full'
+            onPress={handleSendMessage}
           >
             <Feather name= 'send' size= {hp(3)} color='#737373'/>
           </TouchableOpacity>

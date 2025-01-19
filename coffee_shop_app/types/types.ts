@@ -16,7 +16,7 @@ export interface ProductCategory{
 }
 
 export interface MessageInterface{
-  cole: string;
+  role: string;
   content: string;
   memory?: any;
 }
