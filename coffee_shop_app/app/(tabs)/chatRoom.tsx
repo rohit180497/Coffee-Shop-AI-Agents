@@ -7,15 +7,16 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nati
 import { Feather } from '@expo/vector-icons'
 import MessageList from '@/components/MessageList'
 import { callChatBotAPI } from '@/services/chatBotService'
+import { useCart } from "@components/CartContext";
 
 
 const ChatRoom = () => {
 
   const [messages, setMessages] = useState<MessageInterface[]>([]) 
-  const [isTyping, setIsTyping] = useState<boolean>(false);
-
+  const [isTyping, setIsTyping] = useState<boolean>(false)
   const textRef = useRef('')
   const inputRef = useRef<TextInput>(null)
+  const {addToCart, emptyCart} = useCart();
 
   useEffect(() => {
   }, [messages]);
@@ -37,8 +38,19 @@ const ChatRoom = () => {
       setIsTyping(true)
       // await new Promise(resolve => setTimeout(resolve, 5000))
       let responseMessage = await callChatBotAPI(inputMessages)
-      setMessages([...inputMessages, responseMessage])
       setIsTyping(false)
+      setMessages([...inputMessages, responseMessage])
+      if (responseMessage) {
+        if (responseMessage,memory) {
+          if (responseMessage.memory.order) {
+            emptyCart();
+            responseMessage,memory.order.forEach((item:any) => {
+            addToCart(item.item, item.quantity)
+          });
+          }
+        }
+      }
+      
     } 
     catch (error) 
     {
