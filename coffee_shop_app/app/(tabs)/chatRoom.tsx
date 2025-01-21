@@ -7,12 +7,18 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nati
 import { Feather } from '@expo/vector-icons'
 import MessageList from '@/components/MessageList'
 import { callChatBotAPI } from '@/services/chatBotService'
-import { useCart } from "@components/CartContext";
+import { useCart } from "@/components/CartContext";
 
 
 const ChatRoom = () => {
 
-  const [messages, setMessages] = useState<MessageInterface[]>([]) 
+  const [messages, setMessages] = useState<MessageInterface[]>([
+    {
+      role: 'assistant',
+      content: "Welcome to Merry's Way Cafe! ☕ Let’s make your coffee moment special. How can I assist you today?",
+    },
+  ]); 
+  // const [messages, setMessages] = useState<MessageInterface[]>([]) 
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const textRef = useRef('')
   const inputRef = useRef<TextInput>(null)

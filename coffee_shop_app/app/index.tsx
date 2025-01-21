@@ -18,16 +18,16 @@ export default function Index() {
         <View
           className="flex w-[80%]"
         />
-        <Text className="text-white text-3xl text-center font-[Sora-SemiBold] "> 
-          Fall in Love With Coffee in Blissful Delight!
+        <Text className="text-white text-2xl text-center font-[Sora-SemiBold] px-2 "> 
+          Life Starts with Coffee; Let’s Brew Happiness Together
         </Text>
         <Text className= "pt-6 text-[#A2A2A2] text-s text-center font-[Sora-Regular] mx-7 leading-6"
         >
-         Welcome to our cozy coffee corner, where every cup is a delightful for you.
+         Step into Merry's Way Coffee, your happy place where every brew is crafted with love and care..
         </Text>
 
         <TouchableOpacity
-          className="bg-[#C67C4E] mt-8 p-5 w-43 h-15 rounded-lg items-center"
+          className="bg-[#C67C4E] mt-8 p-5 px-3 w-43 h-15 rounded-lg items-center"
           onPress={() => {router.push("/(tabs)/home");}}
         >
           <Text

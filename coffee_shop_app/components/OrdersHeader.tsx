@@ -15,7 +15,7 @@ const OrdersHeader = () => {
         <Text
         className=" mx-7 mt-3 text-[#242424] text-base font-[Sora-SemiBold] mb-2"
         >
-        Snell Library
+        Snell Library, Northeastern University
         </Text>
         <Text
         className=" mx-7 text-[#A2A2A2] text-s font-[Sora-SemiBold] mb-3"
