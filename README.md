@@ -4,61 +4,66 @@ Welcome to the Merry's Way Coffee GitHub repository. This project is an innovati
 
 ## Architecture Overview: CafeBot System
 
-1. Development and Deployment Workflow
-
-Data Sources:
-
-- Product Details: Includes name, description, price, and other metadata.
-- Historical Orders Data: Used to power recommendation engines.
-- Product Images: Managed and uploaded via Firebase for 
-
-2. Embedding and Recommendation Engine:
-
-Utilizes Hugging Face for embedding generation using models like bge-small-en-v1.5.
-
-The Apriori Algorithm is implemented to provide product recommendations.
-
-Agents are orchestrated as follows:
-
-- Guard Agent: Ensures safety and compliance.
-- Classification Agent: Directs user inputs to the appropriate agent.
-- Details Agent: Retrieves product information.
-- Order Taking Agent: Manages order placement.
-- Recommendation Agent: Provides suggestions based on user preferences.
-
-3. Firebase Integration:
-
-All images are stored and managed using Firebase.
-
-Firebase Uploader handles image and data uploads seamlessly.
-
-4. Containerization and Deployment:
-
-A Docker image is created for API services and uploaded to DockerHub.
-
-The application is deployed and accessible through RunPod endpoints for serverless execution.
 
 
-5. Multi-Agent and RAG Workflow
+**1. Development and Deployment Workflow**
 
-Agent Workflow:
+    Data Sources:
 
-User inputs are classified by the Input Classifier Agent to determine the query type.
+    - Product Details: Includes name, description, price, and other metadata.
+    - Historical Orders Data: Used to power recommendation engines.
+    - Product Images: Managed and uploaded via Firebase for 
 
-Safe questions bypass the Guard Agent; otherwise, the input is validated.
+**2. Embedding and Recommendation Engine:**
 
-Depending on the query:
+    Utilizes Hugging Face for embedding generation using models like bge-small-en-v1.5.
 
-Order Agent processes orders.
+    The Apriori Algorithm is implemented to provide product recommendations.
 
-Recommendation Agent suggests products.
+    Agents are orchestrated as follows:
 
-Details Agent retrieves product data.
+    - Guard Agent: Ensures safety and compliance.
+    - Classification Agent: Directs user inputs to the appropriate agent.
+    - Details Agent: Retrieves product information.
+    - Order Taking Agent: Manages order placement.
+    - Recommendation Agent: Provides suggestions based on user preferences.
 
-Response Coordination:
+**3. Firebase Integration:**
 
-Responses are fetched from the RunPod API and sent back to the user
+    All images are stored and managed using Firebase.
 
+    Firebase Uploader handles image and data uploads seamlessly.
+
+**4. Containerization and Deployment:**
+
+    A Docker image is created for API services and uploaded to DockerHub.
+
+    The application is deployed and accessible through RunPod endpoints for serverless execution.
+
+
+**5. Multi-Agent and RAG Workflow**
+
+    Agent Workflow:
+
+    User inputs are classified by the Input Classifier Agent to determine the query type.
+    Safe questions bypass the Guard Agent; otherwise, the input is validated.
+    
+    Depending on the query:
+    Order Agent processes orders.
+    Recommendation Agent suggests products.
+    Details Agent retrieves product data.
+    
+    Response Coordination:
+    Responses are fetched from the RunPod API and sent back to the user
+
+
+**6. Android Application Development**
+
+    Frontend Development:
+
+    Built using React Native, leveraging TypeScript for type safety and JavaScript for component logic.
+
+    The mobile app integrates the chatbot interface for engaging user interactions.
 
 ### **Application Flow**
 
