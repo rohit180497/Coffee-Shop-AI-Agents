@@ -1,1 +1,3 @@
-# Coffee-Shop-AI-Agents
+## Merry's Way Coffee: AI-Driven Coffee Shop Application
+
+Welcome to the Merry's Way Coffee GitHub repository. This project is an innovative coffee shop application designed to bring an engaging and personalized experience to coffee lovers. The app leverages AI-powered agents for chat-based interactions and integrates modern web and mobile development techniques to provide seamless ordering and delivery services.
