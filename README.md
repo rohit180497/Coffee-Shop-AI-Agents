@@ -2,7 +2,63 @@
 
 Welcome to the Merry's Way Coffee GitHub repository. This project is an innovative coffee shop application designed to bring an engaging and personalized experience to coffee lovers. The app leverages AI-powered agents for chat-based interactions and integrates modern web and mobile development techniques to provide seamless ordering and delivery services.
 
-## High Level End-to-End Architecture
+## Architecture Overview: CafeBot System
+
+1. Development and Deployment Workflow
+
+Data Sources:
+
+- Product Details: Includes name, description, price, and other metadata.
+- Historical Orders Data: Used to power recommendation engines.
+- Product Images: Managed and uploaded via Firebase for 
+
+2. Embedding and Recommendation Engine:
+
+Utilizes Hugging Face for embedding generation using models like bge-small-en-v1.5.
+
+The Apriori Algorithm is implemented to provide product recommendations.
+
+Agents are orchestrated as follows:
+
+- Guard Agent: Ensures safety and compliance.
+- Classification Agent: Directs user inputs to the appropriate agent.
+- Details Agent: Retrieves product information.
+- Order Taking Agent: Manages order placement.
+- Recommendation Agent: Provides suggestions based on user preferences.
+
+3. Firebase Integration:
+
+All images are stored and managed using Firebase.
+
+Firebase Uploader handles image and data uploads seamlessly.
+
+4. Containerization and Deployment:
+
+A Docker image is created for API services and uploaded to DockerHub.
+
+The application is deployed and accessible through RunPod endpoints for serverless execution.
+
+
+5. Multi-Agent and RAG Workflow
+
+Agent Workflow:
+
+User inputs are classified by the Input Classifier Agent to determine the query type.
+
+Safe questions bypass the Guard Agent; otherwise, the input is validated.
+
+Depending on the query:
+
+Order Agent processes orders.
+
+Recommendation Agent suggests products.
+
+Details Agent retrieves product data.
+
+Response Coordination:
+
+Responses are fetched from the RunPod API and sent back to the user
+
 
 ### **Application Flow**
 
@@ -100,3 +156,7 @@ I welcome contributions from the community. Follow these steps:
 - Advanced order tracking.
 - Enhanced AI recommendations based on user purchase history.
 - Multi-language support for chatbot interactions.
+
+## License
+
+-This project is licensed under the MIT License. See the LICENSE file for details.
